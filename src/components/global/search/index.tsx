@@ -4,8 +4,7 @@ import { Input } from '@/components/ui/input'
 import { Skeleton } from '@/components/ui/skeleton'
 import { useMutationData } from '@/hooks/use-mutation-data'
 import { useSearch } from '@/hooks/use-search'
-import { UserIcon } from 'lucide-react'
-import React from 'react'
+import { User } from 'lucide-react'
 import Loader from '../loader'
 // import { inviteMembers } from '@/actions/user'
 
@@ -53,7 +52,7 @@ const Search = ({ workspaceId }: Props) => {
               <Avatar>
                 <AvatarImage src={user.image as string} />
                 <AvatarFallback>
-                  <UserIcon />
+                  <User />
                 </AvatarFallback>
               </Avatar>
               <div className="flex flex-col items-start">
@@ -73,9 +72,9 @@ const Search = ({ workspaceId }: Props) => {
                   variant="default"
                   className="w-5/12 font-bold"
                 >
-                  {/* <Loader state={isPending} color="#000">
+                  <Loader state={false} color="#000">
                     Invite
-                  </Loader> */}
+                  </Loader>
                 </Button>
               </div>
             </div>
