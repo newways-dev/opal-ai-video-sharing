@@ -50,13 +50,13 @@ const VideoPreview = ({ videoId }: Props) => {
         <div>
           <div className="flex gap-x-5 items-start justify-between">
             <h2 className="text-white text-4xl font-bold">{video.title}</h2>
-            {/* {author && (
+            {author && (
               <EditVideo
                 videoId={videoId}
                 title={video.title as string}
                 description={video.description as string}
               />
-            )} */}
+            )}
           </div>
           <span className="flex gap-x-3 mt-2">
             <p className="text-[#9D9D9D] capitalize">
