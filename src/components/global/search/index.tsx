@@ -1,12 +1,12 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Skeleton } from '@/components/ui/skeleton'
 import { useMutationData } from '@/hooks/use-mutation-data'
+import { Skeleton } from '@/components/ui/skeleton'
+import { Button } from '@/components/ui/button'
+import { inviteMembers } from '@/actions/user'
 import { useSearch } from '@/hooks/use-search'
+import { Input } from '@/components/ui/input'
 import { User } from 'lucide-react'
 import Loader from '../loader'
-// import { inviteMembers } from '@/actions/user'
 
 type Props = {
   workspaceId: string
@@ -18,13 +18,11 @@ const Search = ({ workspaceId }: Props) => {
     'USERS'
   )
 
-  // WIP: Wire up sending invitations
-  //   WIP: Wire up invite button in UI
-  //   const { mutate, isPending } = useMutationData(
-  //     ['invite-member'],
-  //     (data: { recieverId: string; email: string }) =>
-  //       inviteMembers(workspaceId, data.recieverId, data.email)
-  //   )
+  const { mutate, isPending } = useMutationData(
+    ['invite-member'],
+    (data: { recieverId: string; email: string }) =>
+      inviteMembers(workspaceId, data.recieverId, data.email)
+  )
 
   return (
     <div className="flex flex-col gap-5">
@@ -65,14 +63,13 @@ const Search = ({ workspaceId }: Props) => {
               </div>
               <div className="flex flex-1 justify-end items-center">
                 <Button
-                  onClick={
-                    () => {}
-                    // mutate({ recieverId: user.id, email: user.email })
+                  onClick={() =>
+                    mutate({ recieverId: user.id, email: user.email })
                   }
                   variant="default"
                   className="w-5/12 font-bold"
                 >
-                  <Loader state={false} color="#000">
+                  <Loader state={isPending} color="#000">
                     Invite
                   </Loader>
                 </Button>
