@@ -199,6 +199,52 @@ export const getVideoComments = async (Id: string) => {
   }
 }
 
+export const createCommentAndReply = async (
+  userId: string,
+  comment: string,
+  videoId: string,
+  commentId?: string
+) => {
+  try {
+    if (commentId) {
+      const reply = await client.comment.update({
+        where: {
+          id: commentId,
+        },
+        data: {
+          reply: {
+            create: {
+              comment,
+              userId,
+              videoId,
+            },
+          },
+        },
+      })
+      if (reply) return { status: 200, data: 'Reply posted' }
+      return { status: 404 }
+    }
+
+    const newComment = await client.video.update({
+      where: {
+        id: videoId,
+      },
+      data: {
+        Comment: {
+          create: {
+            comment,
+            userId,
+          },
+        },
+      },
+    })
+    if (newComment) return { status: 200, data: 'New comment added' }
+    return { status: 404 }
+  } catch (error) {
+    return { status: 500 }
+  }
+}
+
 export const getPaymentInfo = async () => {
   try {
     const user = await currentUser()
@@ -217,6 +263,46 @@ export const getPaymentInfo = async () => {
       },
     })
     if (paymentInfo) return { status: 200, data: paymentInfo }
+    return { status: 404 }
+  } catch (error) {
+    return { status: 500 }
+  }
+}
+
+export const enableFirstView = async (state: boolean) => {
+  try {
+    const user = await currentUser()
+    if (!user) return { status: 403 }
+
+    const userData = await client.user.update({
+      where: {
+        clerkid: user.id,
+      },
+      data: {
+        firstView: state,
+      },
+    })
+    if (userData) return { status: 200, data: 'Settings updated' }
+    return { status: 404 }
+  } catch (error) {
+    return { status: 500 }
+  }
+}
+
+export const getFirstView = async () => {
+  try {
+    const user = await currentUser()
+    if (!user) return { status: 403 }
+
+    const userData = await client.user.findUnique({
+      where: {
+        clerkid: user.id,
+      },
+      select: {
+        firstView: true,
+      },
+    })
+    if (userData) return { status: 200, data: userData.firstView }
     return { status: 404 }
   } catch (error) {
     return { status: 500 }
