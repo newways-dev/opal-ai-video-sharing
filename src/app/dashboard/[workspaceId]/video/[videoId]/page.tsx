@@ -1,6 +1,6 @@
 import { getUserProfile, getVideoComments } from '@/actions/user'
-import { getPreviewVideo } from '@/actions/workspace'
 import VideoPreview from '@/components/global/videos/preview'
+import { getPreviewVideo } from '@/actions/workspace'
 import {
   dehydrate,
   HydrationBoundary,
@@ -23,7 +23,7 @@ const Page = async ({ params: { videoId } }: Props) => {
 
   await query.prefetchQuery({
     queryKey: ['user-profile'],
-    queryFn: getUserProfile,
+    queryFn: () => getUserProfile,
   })
 
   await query.prefetchQuery({

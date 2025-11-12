@@ -41,14 +41,11 @@ const AiTools = ({ videoId, trial, plan }: Props) => {
                 Pay Now
               </Loader>
             </Button>
-            {/* <Button className=" mt-2 text-sm">
-            <Loader
-              state={false}
-              color="#000"
-            >
-              Generate Now
-            </Loader>
-          </Button> */}
+            <Button className=" mt-2 text-sm">
+              <Loader state={false} color="#000">
+                Generate Now
+              </Loader>
+            </Button>
           </div>
         </div>
         <div className="border rounded-xl p-4 gap-4 flex flex-col bg-[#1b0f1b7f]">
