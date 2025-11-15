@@ -1,6 +1,6 @@
 import { useSubscription } from '@/hooks/use-subscription'
 import { Button } from '@/components/ui/button'
-import Loader from '../loader'
+import Loader from '../../loader'
 
 const PaymentButton = () => {
   const { onSubscribe, isProcessing } = useSubscription()
